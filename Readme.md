@@ -1,7 +1,7 @@
 # Личный проект «Код и Магия» [![Build status][travis-image]][travis-url] [![Dependency status][dependency-image]][dependency-url]
 
 * Студент: [Анна Кащеева](https://up.htmlacademy.ru/javascript/5/user/145263).
-* Наставник: `Неизвестно`.
+* Наставник: `Александр Быков`.
 
 ---
 
