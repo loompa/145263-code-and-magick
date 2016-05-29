@@ -11,7 +11,7 @@
       return 'Я прыгнул на ' + a*100 + ' сантиметров';
     }
 
-    if (Array.isArray(a) && Array.isArray(b)) {
+    if (Array.isArray(a) && Array.isArray(b) && (a.length === b.length)) {
       var length = 0;
       for (var i = 0; i < a.length; i++) {
         length = length + a[i] * b[i];
