@@ -381,49 +381,67 @@
       switch (this.state.currentStatus) {
         case Verdict.WIN:
           console.log('you have won!');
+          this._drawRectangle('Now you can wear the title of Pendalf the CONQUEROR!', 150);
           break;
         case Verdict.FAIL:
           console.log('you have failed!');
+          this._drawRectangle('You have to exercise more to become a great magician, try again!', 100);
           break;
         case Verdict.PAUSE:
           console.log('game is on pause!');
-          this._drawRectangle('game is on pause!');
+          this._drawRectangle('It seems you are tired?', 70);
           break;
         case Verdict.INTRO:
           console.log('welcome to the game! Press Space to start');
-          this._drawRectangle('Привет, красотка, это супер крутая игра с супер длинным сообщением, надеюсь, тебе повезет и оно влезет, хотя нет, кажется тебе пока не везет');
+          this._drawRectangle('Hello, stranger, LET THE WAR BEGIN! to start hold the space; to fire hold the shift', 200);
           break;
       }
     },
 
-    _drawRectangle: function(message) {
+    _splitMessage: function(message, maxWidth) {
+      var canvas = document.querySelector('canvas');
+      var ctx = canvas.getContext('2d');
+      ctx.font = '16px PT Mono';
+      var firstLine = '';
+      var saveLine;
+      var LINES = [];
+      var words = message.split(' ');
+      for (var i = 0; i < words.length; i++) {
+        saveLine = firstLine;
+        firstLine = firstLine + words[i] + ' ';
+        if (ctx.measureText(firstLine).width > maxWidth) {
+          LINES.push(saveLine);
+          firstLine = words[i] + ' ';
+        }
+      }
+      if (i === words.length) { //Чтобы записать последнюю строчку :(
+          LINES.push(firstLine);
+          } 
+    return LINES;
+    },
+
+    _drawRectangle: function(message, maxWidth) {
+      var LINES = this._splitMessage(message, maxWidth);
       var character = this.state.objects[this.level];
       var canvas = document.querySelector('canvas');
       var ctx = canvas.getContext('2d');
       var leftX = character.x + character.width;
       var leftY = character.y - character.width;
-      var maxWidth = 200;
-      var maxHeight = 100;
+      var maxHeight = LINES.length * 20; 
+
       ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
       ctx.fillRect(leftX + 10, leftY + 10, maxWidth, maxHeight);
       ctx.fillStyle = 'white';
       ctx.fillRect(leftX, leftY, maxWidth, maxHeight);
       ctx.fillStyle = 'blue';
-      //Буду мутить текст
-      var textX = leftX;
-      var textY = leftY;
-      var firstLine = '';
+      
+      var textX = leftX + 10;
+      var textY = leftY + 15;
       ctx.font = '16px PT Mono';
-      var words = message.split(' ');
-      for (var i = 0; i < words.length; i++) {
-        firstLine = firstLine + words[i] + ' ';
-        ctx.fillText(firstLine, textX, textY + 10);
-        if (ctx.measureText(firstLine).width > maxWidth) {
-          textX = leftX;
-          textY = textY + 18;
-          firstLine = '';
-        }
-      }
+      for (var i = 0; i < LINES.length; i++) { 
+      ctx.fillText(LINES[i], textX, textY);
+      textY = textY + 18;
+      }   
     },
 
     /**
