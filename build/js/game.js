@@ -415,9 +415,9 @@
         }
       }
       if (i === words.length) { //Чтобы записать последнюю строчку :(
-            LINES.push(firstLine);
-          }
-     return LINES;
+        LINES.push(firstLine);
+      }
+      return LINES;
     },
 
     _drawRectangle: function(message, maxWidth) {
