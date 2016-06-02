@@ -415,9 +415,9 @@
         }
       }
       if (i === words.length) { //Чтобы записать последнюю строчку :(
-          LINES.push(firstLine);
-          } 
-    return LINES;
+            LINES.push(firstLine);
+          }
+     return LINES;
     },
 
     _drawRectangle: function(message, maxWidth) {
@@ -427,21 +427,21 @@
       var ctx = canvas.getContext('2d');
       var leftX = character.x + character.width;
       var leftY = character.y - character.width;
-      var maxHeight = LINES.length * 20; 
+      var maxHeight = LINES.length * 20;
 
       ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
       ctx.fillRect(leftX + 10, leftY + 10, maxWidth, maxHeight);
       ctx.fillStyle = 'white';
       ctx.fillRect(leftX, leftY, maxWidth, maxHeight);
       ctx.fillStyle = 'blue';
-      
+
       var textX = leftX + 10;
       var textY = leftY + 15;
       ctx.font = '16px PT Mono';
-      for (var i = 0; i < LINES.length; i++) { 
-      ctx.fillText(LINES[i], textX, textY);
-      textY = textY + 18;
-      }   
+      for (var i = 0; i < LINES.length; i++) {
+        ctx.fillText(LINES[i], textX, textY);
+        textY = textY + 18;
+      }
     },
 
     /**
