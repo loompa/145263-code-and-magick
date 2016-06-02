@@ -387,10 +387,44 @@
           break;
         case Verdict.PAUSE:
           console.log('game is on pause!');
+          this._drawRectangle('game is on pause!');
           break;
         case Verdict.INTRO:
           console.log('welcome to the game! Press Space to start');
+          this._drawRectangle('Привет, красотка, это супер крутая игра с супер длинным сообщением, надеюсь, тебе повезет и оно влезет, хотя нет, кажется тебе пока не везет');
           break;
+      }
+    },
+
+    _drawRectangle: function(message) {
+
+      
+      var canvas = document.querySelector('canvas');
+      var ctx = canvas.getContext('2d');
+      var leftX = 300;
+      var leftY = 100;
+      var maxWidth = 200;
+      var maxHeight = 100;
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
+      ctx.fillRect(leftX + 10, leftY + 10, maxWidth, maxHeight);
+      ctx.fillStyle = 'white';
+      ctx.fillRect(leftX, leftY, maxWidth, maxHeight);
+      ctx.fillStyle = 'blue';
+      //Буду мутить текст
+      var textX = leftX;
+      var textY = leftY;
+      var firstLine = '';
+      ctx.font = '16px PT Mono';
+      var words = message.split(" ");
+      for (var i = 0; i < words.length; i++) {
+        firstLine = firstLine + words[i] + ' ';
+        ctx.fillText(firstLine, textX, textY + 10);
+        if (ctx.measureText(firstLine).width > maxWidth) {
+          textX = leftX;
+          textY = textY + 18; 
+          firstLine = '';
+        }
+      
       }
     },
 
