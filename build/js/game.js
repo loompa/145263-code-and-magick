@@ -397,10 +397,11 @@
     },
 
     _drawRectangle: function(message) {
+      var character = this.state.objects[this.level];
       var canvas = document.querySelector('canvas');
       var ctx = canvas.getContext('2d');
-      var leftX = 300;
-      var leftY = 100;
+      var leftX = character.x + character.width;
+      var leftY = character.y - character.width;
       var maxWidth = 200;
       var maxHeight = 100;
       ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
