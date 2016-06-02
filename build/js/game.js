@@ -397,8 +397,6 @@
     },
 
     _drawRectangle: function(message) {
-
-      
       var canvas = document.querySelector('canvas');
       var ctx = canvas.getContext('2d');
       var leftX = 300;
@@ -415,16 +413,15 @@
       var textY = leftY;
       var firstLine = '';
       ctx.font = '16px PT Mono';
-      var words = message.split(" ");
+      var words = message.split(' ');
       for (var i = 0; i < words.length; i++) {
         firstLine = firstLine + words[i] + ' ';
         ctx.fillText(firstLine, textX, textY + 10);
         if (ctx.measureText(firstLine).width > maxWidth) {
           textX = leftX;
-          textY = textY + 18; 
+          textY = textY + 18;
           firstLine = '';
         }
-      
       }
     },
 
