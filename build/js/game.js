@@ -404,8 +404,8 @@
       ctx.font = '16px PT Mono';
 
       var LINES = this._splitMessage(message, maxWidth); //получаю массив из строк в соответствии с maxWidth
-    
-      var character = this.state.objects[this.level]; 
+
+      var character = this.state.objects[this.level];
       var leftX = character.x + character.width;  //получаю координаты пендальфа и смещаю относительно него координаты прямоугольника
       var leftY = character.y - character.width;
       var rectHeight = LINES.length * 20; //высота сообщения подстраивается под текст, * 20 - исходя из того, что текст 16px
@@ -416,13 +416,13 @@
       ctx.fillRect(leftX, leftY, maxWidth, rectHeight);
 
       ctx.fillStyle = 'blue';
-      var textX = leftX + 10; 
+      var textX = leftX + 10;
       var textY = leftY + 15; //здесь +10 и 15, чтобы текст не прилипал к углу прямоугольника
       ctx.font = '16px PT Mono';
       for (var i = 0; i < LINES.length; i++) {
         ctx.fillText(LINES[i], textX, textY);
-        textY = textY + 18; 
-      }      
+        textY = textY + 18;
+      }
     },
 
     _splitMessage: function(message, maxWidth) {
@@ -441,7 +441,7 @@
           line = words[i] + ' ';
         } else {
           line = firstLine;
-          }
+        }
       }
       LINES.push(line);
       return LINES;
