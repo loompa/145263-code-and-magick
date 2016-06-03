@@ -381,69 +381,71 @@
       switch (this.state.currentStatus) {
         case Verdict.WIN:
           console.log('you have won!');
-          this._drawRectangle('Now you can wear the title of Pendalf the CONQUEROR!', 150);
+          this._returnMessage('Now you can wear the title of Pendalf the CONQUEROR!', 150);
           break;
         case Verdict.FAIL:
           console.log('you have failed!');
-          this._drawRectangle('You have to exercise more to become a great magician, try again!', 100);
+          this._returnMessage('You have to exercise more to become a great magician, try again!', 100);
           break;
         case Verdict.PAUSE:
           console.log('game is on pause!');
-          this._drawRectangle('It seems you are tired?', 70);
+          this._returnMessage('It seems you are tired?', 90);
           break;
         case Verdict.INTRO:
           console.log('welcome to the game! Press Space to start');
-          this._drawRectangle('Hello, stranger, LET THE WAR BEGIN! to start hold the space; to fire hold the shift', 200);
+          this._returnMessage('Hello, stranger, LET THE WAR BEGIN! to start hold the space; to fire hold the shift', 150);
           break;
       }
+    },
+
+    _returnMessage: function(message, maxWidth) {
+      var canvas = document.querySelector('canvas');
+      var ctx = canvas.getContext('2d');
+      ctx.font = '16px PT Mono';
+
+      var LINES = this._splitMessage(message, maxWidth); //получаю массив из строк в соответствии с maxWidth
+    
+      var character = this.state.objects[this.level]; 
+      var leftX = character.x + character.width;  //получаю координаты пендальфа и смещаю относительно него координаты прямоугольника
+      var leftY = character.y - character.width;
+      var rectHeight = LINES.length * 20; //высота сообщения подстраивается под текст, * 20 - исходя из того, что текст 16px
+
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
+      ctx.fillRect(leftX + 10, leftY + 10, maxWidth, rectHeight);
+      ctx.fillStyle = 'white';
+      ctx.fillRect(leftX, leftY, maxWidth, rectHeight);
+
+      ctx.fillStyle = 'blue';
+      var textX = leftX + 10; 
+      var textY = leftY + 15; //здесь +10 и 15, чтобы текст не прилипал к углу прямоугольника
+      ctx.font = '16px PT Mono';
+      for (var i = 0; i < LINES.length; i++) {
+        ctx.fillText(LINES[i], textX, textY);
+        textY = textY + 18; 
+      }      
     },
 
     _splitMessage: function(message, maxWidth) {
       var canvas = document.querySelector('canvas');
       var ctx = canvas.getContext('2d');
       ctx.font = '16px PT Mono';
+
       var firstLine = '';
-      var saveLine;
+      var line = '';
       var LINES = [];
       var words = message.split(' ');
       for (var i = 0; i < words.length; i++) {
-        saveLine = firstLine;
-        firstLine = firstLine + words[i] + ' ';
-        if (ctx.measureText(firstLine).width > maxWidth) {
-          LINES.push(saveLine);
-          firstLine = words[i] + ' ';
-        }
+        firstLine = line + words[i] + ' ';
+        if ((ctx.measureText(firstLine).width > maxWidth) && (i > 0)) {
+          LINES.push(line);
+          line = words[i] + ' ';
+        } else {
+          line = firstLine;
+          }
       }
-      if (i === words.length) { //Чтобы записать последнюю строчку :(
-        LINES.push(firstLine);
-      }
+      LINES.push(line);
       return LINES;
     },
-
-    _drawRectangle: function(message, maxWidth) {
-      var LINES = this._splitMessage(message, maxWidth);
-      var character = this.state.objects[this.level];
-      var canvas = document.querySelector('canvas');
-      var ctx = canvas.getContext('2d');
-      var leftX = character.x + character.width;
-      var leftY = character.y - character.width;
-      var maxHeight = LINES.length * 20;
-
-      ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
-      ctx.fillRect(leftX + 10, leftY + 10, maxWidth, maxHeight);
-      ctx.fillStyle = 'white';
-      ctx.fillRect(leftX, leftY, maxWidth, maxHeight);
-      ctx.fillStyle = 'blue';
-
-      var textX = leftX + 10;
-      var textY = leftY + 15;
-      ctx.font = '16px PT Mono';
-      for (var i = 0; i < LINES.length; i++) {
-        ctx.fillText(LINES[i], textX, textY);
-        textY = textY + 18;
-      }
-    },
-
     /**
      * Предзагрузка необходимых изображений для уровня.
      * @param {function} callback
