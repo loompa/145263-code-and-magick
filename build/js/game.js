@@ -1,5 +1,7 @@
 'use strict';
 
+var FONT_SIZE = '16px PT Mono';
+
 (function() {
   /**
    * @const
@@ -401,14 +403,14 @@
     _returnMessage: function(message, maxWidth) {
       var canvas = document.querySelector('canvas');
       var ctx = canvas.getContext('2d');
-      ctx.font = '16px PT Mono';
+      ctx.font = FONT_SIZE;
 
-      var LINES = this._splitMessage(message, maxWidth); //получаю массив из строк в соответствии с maxWidth
+      var lines = this._splitMessage(message, maxWidth); //получаю массив из строк в соответствии с maxWidth
 
       var character = this.state.objects[this.level];
       var leftX = character.x + character.width;  //получаю координаты пендальфа и смещаю относительно него координаты прямоугольника
       var leftY = character.y - character.width;
-      var rectHeight = LINES.length * 20; //высота сообщения подстраивается под текст, * 20 - исходя из того, что текст 16px
+      var rectHeight = lines.length * 20; //высота сообщения подстраивается под текст, * 20 - исходя из того, что текст 16px
 
       ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
       ctx.fillRect(leftX + 10, leftY + 10, maxWidth, rectHeight);
@@ -418,9 +420,9 @@
       ctx.fillStyle = 'blue';
       var textX = leftX + 10;
       var textY = leftY + 15; //здесь +10 и 15, чтобы текст не прилипал к углу прямоугольника
-      ctx.font = '16px PT Mono';
-      for (var i = 0; i < LINES.length; i++) {
-        ctx.fillText(LINES[i], textX, textY);
+
+      for (var i = 0; i < lines.length; i++) {
+        ctx.fillText(lines[i], textX, textY);
         textY = textY + 18;
       }
     },
@@ -428,23 +430,23 @@
     _splitMessage: function(message, maxWidth) {
       var canvas = document.querySelector('canvas');
       var ctx = canvas.getContext('2d');
-      ctx.font = '16px PT Mono';
+      ctx.font = FONT_SIZE;
 
       var firstLine = '';
       var line = '';
-      var LINES = [];
+      var lines = [];
       var words = message.split(' ');
       for (var i = 0; i < words.length; i++) {
         firstLine = line + words[i] + ' ';
         if ((ctx.measureText(firstLine).width > maxWidth) && (i > 0)) {
-          LINES.push(line);
+          lines.push(line);
           line = words[i] + ' ';
         } else {
           line = firstLine;
         }
       }
-      LINES.push(line);
-      return LINES;
+      lines.push(line);
+      return lines;
     },
     /**
      * Предзагрузка необходимых изображений для уровня.
