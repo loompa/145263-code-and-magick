@@ -1,6 +1,10 @@
 'use strict';
 
 (function() {
+    /**
+   * @const
+   * @type {number}
+   */
   var FONT_SIZE = '16px PT Mono';
   /**
    * @const
