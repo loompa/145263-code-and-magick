@@ -1,6 +1,11 @@
 'use strict';
 
 (function() {
+    /**
+   * @const
+   * @type {number}
+   */
+  var FONT_SIZE = '16px PT Mono';
   /**
    * @const
    * @type {number}
@@ -381,19 +386,71 @@
       switch (this.state.currentStatus) {
         case Verdict.WIN:
           console.log('you have won!');
+          this._returnMessage('Now you can wear the title of Pendalf the CONQUEROR!', 150);
           break;
         case Verdict.FAIL:
           console.log('you have failed!');
+          this._returnMessage('You have to exercise more to become a great magician, try again!', 100);
           break;
         case Verdict.PAUSE:
           console.log('game is on pause!');
+          this._returnMessage('It seems you are tired?', 90);
           break;
         case Verdict.INTRO:
           console.log('welcome to the game! Press Space to start');
+          this._returnMessage('Hello, stranger, LET THE WAR BEGIN! to start hold the space; to fire hold the shift', 150);
           break;
       }
     },
 
+    _returnMessage: function(message, maxWidth) {
+      var canvas = document.querySelector('canvas');
+      var ctx = canvas.getContext('2d');
+      ctx.font = FONT_SIZE;
+
+      var lines = this._splitMessage(message, maxWidth); //получаю массив из строк в соответствии с maxWidth
+
+      var character = this.state.objects[this.level];
+      var leftX = character.x + character.width;  //получаю координаты пендальфа и смещаю относительно него координаты прямоугольника
+      var leftY = character.y - character.width;
+      var rectHeight = lines.length * 20; //высота сообщения подстраивается под текст, * 20 - исходя из того, что текст 16px
+
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
+      ctx.fillRect(leftX + 10, leftY + 10, maxWidth, rectHeight);
+      ctx.fillStyle = 'white';
+      ctx.fillRect(leftX, leftY, maxWidth, rectHeight);
+
+      ctx.fillStyle = 'blue';
+      var textX = leftX + 10;
+      var textY = leftY + 15; //здесь +10 и 15, чтобы текст не прилипал к углу прямоугольника
+
+      for (var i = 0; i < lines.length; i++) {
+        ctx.fillText(lines[i], textX, textY);
+        textY = textY + 18;
+      }
+    },
+
+    _splitMessage: function(message, maxWidth) {
+      var canvas = document.querySelector('canvas');
+      var ctx = canvas.getContext('2d');
+      ctx.font = FONT_SIZE;
+
+      var firstLine = '';
+      var line = '';
+      var lines = [];
+      var words = message.split(' ');
+      for (var i = 0; i < words.length; i++) {
+        firstLine = line + words[i] + ' ';
+        if ((ctx.measureText(firstLine).width > maxWidth) && (i > 0)) {
+          lines.push(line);
+          line = words[i] + ' ';
+        } else {
+          line = firstLine;
+        }
+      }
+      lines.push(line);
+      return lines;
+    },
     /**
      * Предзагрузка необходимых изображений для уровня.
      * @param {function} callback
