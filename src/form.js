@@ -7,14 +7,12 @@
   var form = document.querySelector('.review-form');
   var field = form.querySelector('.review-form-group-mark');
   var radio = form.elements['review-mark'];
-  var name = form.elements['review-name'];
-  var text = form.elements['review-text'];
 
   document.getElementById('review-name').required = true;
 
-  field.onchange = function () {
+  field.onchange = function() {
     if (radio.value <= 3) {
-        document.getElementById('review-text').required = true;
+      document.getElementById('review-text').required = true;
     }
   };
 
