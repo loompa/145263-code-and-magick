@@ -16,7 +16,7 @@
 
   form.oninput = function() {
     changeVisible();
-  }
+  };
 
   var changeVisible = function() {
     if (name.value !== '') {
@@ -30,7 +30,7 @@
     } else {
       textPrompt.classList.remove('invisible');
     }
-  }
+  };
 
   field.onchange = function() {
     if (radio.value <= 3) {
