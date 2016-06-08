@@ -19,13 +19,13 @@
   }
 
   var changeVisible = function() {
-    if (name.value != '') {
+    if (name.value !== '') {
       namePrompt.classList.add('invisible');
     } else {
       namePrompt.classList.remove('invisible');
     }
 
-    if (text.value != '') {
+    if (text.value !== '') {
       textPrompt.classList.add('invisible');
     } else {
       textPrompt.classList.remove('invisible');
