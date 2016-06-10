@@ -26,17 +26,11 @@
 
   var controlButton = function() {
     if (radio.value <= RADIO_MIDDLE_VALUE) {
-      if ((text.value) && (name.value)) {
-        reviewButton.disabled = false;
-      } else {
-        reviewButton.disabled = true;
-      }
+      if (text.value && name.value) { reviewButton.disabled = false; } 
+        else { reviewButton.disabled = true; }
     } else {
-      if (name.value) {
-        reviewButton.disabled = false;
-      } else {
-        reviewButton.disabled = true;
-      }
+      if (name.value) { reviewButton.disabled = false;
+      } else { reviewButton.disabled = true; }
     }
   };
 
