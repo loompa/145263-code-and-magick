@@ -26,19 +26,11 @@
 
   var controlButton = function() {
     if (radio.value <= RADIO_MIDDLE_VALUE) {
-      if (text.value && name.value) {
-        reviewButton.disabled = false;
+      reviewButton.disabled = !(text.value && name.value)
       } else {
-        reviewButton.disabled = true;
+        reviewButton.disabled = !name.value;
       }
-    } else {
-      if (name.value) {
-        reviewButton.disabled = false;
-      } else {
-        reviewButton.disabled = true;
-      }
-    }
-  };
+    };
 
   var changeVisible = function() {
     if (name.value) {
@@ -61,11 +53,7 @@
   };
 
   field.onchange = function() {
-    if (radio.value <= RADIO_MIDDLE_VALUE) {
-      document.getElementById('review-text').required = true;
-    } else {
-      document.getElementById('review-text').required = false;
-    }
+    document.getElementById('review-text').required = (radio.value <= RADIO_MIDDLE_VALUE);
   };
 
   formOpenButton.onclick = function(evt) {
