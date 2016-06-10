@@ -53,7 +53,7 @@
       textPrompt.classList.remove('invisible');
     }
 
-    if ((name.value) && (text.value)) {
+    if (name.value && text.value) {
       formPrompt.classList.add('invisible');
     } else {
       formPrompt.classList.remove('invisible');
