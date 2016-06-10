@@ -26,11 +26,11 @@
 
   var controlButton = function() {
     if (radio.value <= RADIO_MIDDLE_VALUE) {
-      reviewButton.disabled = !(text.value && name.value)
-      } else {
-        reviewButton.disabled = !name.value;
-      }
-    };
+      reviewButton.disabled = !(text.value && name.value);
+    } else {
+      reviewButton.disabled = !name.value;
+    }
+  };
 
   var changeVisible = function() {
     if (name.value) {
