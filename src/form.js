@@ -60,7 +60,7 @@
   var daysToExpire = function() {
     var now = new Date();
     var myBirthday = new Date();
-    myBirthday.setFullYear(now.getFullYear() , BIRTH_MONTH, BIRTH_DAY);
+    myBirthday.setFullYear(now.getFullYear(), BIRTH_MONTH, BIRTH_DAY);
 
     var difference = now - myBirthday;
 
@@ -70,7 +70,7 @@
     }
 
     return difference;
-  }
+  };
 
   form.onsubmit = function() {
     cookies.set('radioValue', radio.value, {expires: Date.now + daysToExpire()});
