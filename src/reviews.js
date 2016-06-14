@@ -1,3 +1,5 @@
+'use strict';
+
 var reviewsContainer = document.querySelector('.reviews-list');
 var templateElement = document.querySelector('template');
 var reviewsFilter = document.querySelector('.reviews-filter');
@@ -28,9 +30,9 @@ var getReviewElement = function(data, container) {
 
   reviewImage.src = data.author.picture;
 
-    return element;
+  return element;
 };
 
 window.reviews.forEach(function(review) {
-    getReviewElement(review, reviewsContainer);
+  getReviewElement(review, reviewsContainer);
 });
