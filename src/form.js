@@ -18,10 +18,10 @@
   var BIRTH_MONTH = 11;
   var cookies = require('browser-cookies');
 
-  document.getElementById('review-name').required = true; //поле Имя должно быть обязательным
-  document.getElementById('review-text').required = true; //по умолчанию оценка - 3, поэтому сначала отзыв обязательный
-  reviewButton.disabled = true; //кнопка в начале выключена
-  radio.value = cookies.get('radioValue') || 3;
+  document.getElementById('review-name').required = true; 
+  document.getElementById('review-text').required = true; 
+  reviewButton.disabled = true;
+  radio.value = cookies.get('radioValue') || RADIO_MIDDLE_VALUE;
   name.value = cookies.get('nameValue');
 
   form.oninput = function() {
