@@ -16,7 +16,7 @@ var getReviewElement = function(data, container) {
   element.querySelector('.review-text').textContent = data.description;
 
   var ratingValue = data.rating;
-  element.querySelector('span').className = 'review-rating-' + ratingList[ratingValue-1];
+  element.querySelector('span').className = 'review-rating-' + ratingList[ratingValue - 1];
 
   container.appendChild(element);
 
