@@ -15,8 +15,7 @@ var getReviewElement = function(data, container) {
   var element = elementToClone.cloneNode(true);
   element.querySelector('.review-text').textContent = data.description;
 
-  var ratingValue = data.rating;
-  element.querySelector('span').className = 'review-rating-' + ratingList[ratingValue - 1];
+  element.querySelector('span').className = 'review-rating-' + ratingList[data.rating - 1];
 
   container.appendChild(element);
 
