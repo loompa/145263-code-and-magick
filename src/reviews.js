@@ -5,6 +5,7 @@ var templateElement = document.querySelector('template');
 var reviewsFilter = document.querySelector('.reviews-filter');
 var IMAGE_WIDTH = 120;
 var IMAGE_HEIGHT = 120;
+var ratingList = ['one', 'two', 'three', 'four', 'five'];
 
 reviewsFilter.classList.add('invisible');
 
@@ -13,7 +14,10 @@ var elementToClone = templateElement.content.querySelector('.review');
 var getReviewElement = function(data, container) {
   var element = elementToClone.cloneNode(true);
   element.querySelector('.review-text').textContent = data.description;
-  element.querySelector('.review-rating-one').textContent = data.rating;
+
+  var ratingValue = data.rating;
+  element.querySelector('span').className = 'review-rating-' + ratingList[ratingValue-1];
+
   container.appendChild(element);
 
   var reviewImage = new Image();
