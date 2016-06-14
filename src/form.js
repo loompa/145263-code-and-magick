@@ -18,8 +18,8 @@
   var BIRTH_MONTH = 11;
   var cookies = require('browser-cookies');
 
-  document.getElementById('review-name').required = true; 
-  document.getElementById('review-text').required = true; 
+  document.getElementById('review-name').required = true;
+  document.getElementById('review-text').required = true;
   reviewButton.disabled = true;
   radio.value = cookies.get('radioValue') || RADIO_MIDDLE_VALUE;
   name.value = cookies.get('nameValue');
