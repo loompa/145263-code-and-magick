@@ -14,10 +14,15 @@
   var formPrompt = document.querySelector('.review-fields');
   var reviewButton = document.querySelector('.review-submit');
   var RADIO_MIDDLE_VALUE = 3;
+  var BIRTH_DAY = 19;
+  var BIRTH_MONTH = 11;
+  var cookies = require('browser-cookies');
 
-  document.getElementById('review-name').required = true; //поле Имя должно быть обязательным
-  document.getElementById('review-text').required = true; //по умолчанию оценка - 3, поэтому сначала отзыв обязательный
-  reviewButton.disabled = true; //кнопка в начале выключена
+  document.getElementById('review-name').required = true;
+  document.getElementById('review-text').required = true;
+  reviewButton.disabled = true;
+  radio.value = cookies.get('radioValue') || RADIO_MIDDLE_VALUE;
+  name.value = cookies.get('nameValue');
 
   form.oninput = function() {
     changeVisible();
@@ -50,6 +55,26 @@
     } else {
       formPrompt.classList.remove('invisible');
     }
+  };
+
+  var daysToExpire = function() {
+    var now = new Date();
+    var myBirthday = new Date();
+    myBirthday.setFullYear(now.getFullYear(), BIRTH_MONTH, BIRTH_DAY);
+
+    var difference = now - myBirthday;
+
+    if (difference < 0) {
+      myBirthday.setFullYear(now.getFullYear() - 1, BIRTH_MONTH, BIRTH_DAY);
+      difference = now - myBirthday;
+    }
+
+    return difference;
+  };
+
+  form.onsubmit = function() {
+    cookies.set('radioValue', radio.value, {expires: Date.now + daysToExpire()});
+    cookies.set('nameValue', name.value, {expires: Date.now + daysToExpire()});
   };
 
   field.onchange = function() {
