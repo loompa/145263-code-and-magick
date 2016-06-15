@@ -265,7 +265,7 @@ input[type=radio]:checked + .reviews-filter-item {
   opacity: 0.4;
 }
 
-.review-rating {
+.review-rating-one {
   display: block;
   width: 30px;
   height: 30px;
@@ -275,16 +275,32 @@ input[type=radio]:checked + .reviews-filter-item {
 
 
 .review-rating-two {
+  display: block;
   width: 60px;
+  height: 30px;
+
+  background: url("../img/icon-star.png") top left repeat-x;
 }
 .review-rating-three {
+  display: block;
   width: 90px;
+  height: 30px;
+
+  background: url("../img/icon-star.png") top left repeat-x;
 }
 .review-rating-four {
+  display: block;
   width: 120px;
+  height: 30px;
+
+  background: url("../img/icon-star.png") top left repeat-x;
 }
 .review-rating-five {
+  display: block;
   width: 150px;
+  height: 30px;
+
+  background: url("../img/icon-star.png") top left repeat-x;
 }
 
 .review-author {
