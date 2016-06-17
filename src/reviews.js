@@ -5,6 +5,7 @@ var templateElement = document.querySelector('template');
 var reviewsFilter = document.querySelector('.reviews-filter');
 var IMAGE_WIDTH = 120;
 var IMAGE_HEIGHT = 120;
+var REVIEWS_LOAD_URL = '//o0.github.io/assets/json/reviews.json';
 var ratingList = ['one', 'two', 'three', 'four', 'five'];
 
 reviewsFilter.classList.add('invisible');
@@ -36,6 +37,43 @@ var getReviewElement = function(data, container) {
   return element;
 };
 
-window.reviews.forEach(function(review) {
-  getReviewElement(review, reviewsContainer);
+var getReviews = function(callback) {
+  var xhr = new XMLHttpRequest();
+  
+  xhr.onload = function(evt) {
+    reviewsContainer.classList.remove('reviews-list-loading');
+    var loadedData = JSON.parse(evt.target.response);
+    callback(loadedData);
+  };
+
+  xhr.onloadstart = function() {
+      reviewsContainer.classList.add('reviews-list-loading');
+      console.log('kash');
+  };
+
+  xhr.onerror = function() {
+  reviewsContainer.classList.remove('reviews-list-loading');
+  reviewsContainer.classList.add('reviews-load-failure');
+  };
+
+  xhr.timeout = 10000;
+
+  xhr.ontimeout = function() {
+    reviewsContainer.classList.remove('reviews-list-loading');
+    reviewsContainer.classList.add('reviews-load-failure');
+  };
+
+  xhr.open('GET', REVIEWS_LOAD_URL);
+  xhr.send();
+};
+
+var drawReviews = function(reviews) {
+  reviews.forEach(function(review) {
+    getReviewElement(review, reviewsContainer);
+});
+};
+
+getReviews(function(loadedReviews) {
+  reviews = loadedReviews;
+  drawReviews(reviews);
 });
