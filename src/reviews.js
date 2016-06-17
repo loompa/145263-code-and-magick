@@ -5,6 +5,7 @@ var templateElement = document.querySelector('template');
 var reviewsFilter = document.querySelector('.reviews-filter');
 var IMAGE_WIDTH = 120;
 var IMAGE_HEIGHT = 120;
+var LOAD_TIME = 10000;
 var REVIEWS_LOAD_URL = '//o0.github.io/assets/json/reviews.json';
 var ratingList = ['one', 'two', 'three', 'four', 'five'];
 
@@ -57,6 +58,10 @@ var getFilteredReviews = function(filter) {
         return b.usefulness - a.usefulness;
       });
       break;
+
+    default:
+      reviewsToFilter = reviews;
+      break;
   }
 
   return reviewsToFilter;
@@ -106,7 +111,7 @@ var getReviews = function(callback) {
     reviewsContainer.classList.add('reviews-load-failure');
   };
 
-  xhr.timeout = 10000;
+  xhr.timeout = LOAD_TIME;
 
   xhr.ontimeout = function() {
     reviewsContainer.classList.remove('reviews-list-loading');
@@ -117,15 +122,15 @@ var getReviews = function(callback) {
   xhr.send();
 };
 
-var drawReviews = function(reviews) {
+var drawReviews = function(reviewsToFilter) {
   reviewsContainer.innerHTML = '';
-  reviews.forEach(function(review) {
+  reviewsToFilter.forEach(function(review) {
     getReviewElement(review, reviewsContainer);
   });
 };
 
 getReviews(function(loadedReviews) {
-  var reviews = loadedReviews;
+  reviews = loadedReviews;
   setFiltration();
   drawReviews(reviews);
 });
