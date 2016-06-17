@@ -7,7 +7,6 @@ var IMAGE_WIDTH = 120;
 var IMAGE_HEIGHT = 120;
 var REVIEWS_LOAD_URL = '//o0.github.io/assets/json/reviews.json';
 var ratingList = ['one', 'two', 'three', 'four', 'five'];
-var reviews = [];
 
 var elementToClone = templateElement.content.querySelector('.review');
 
@@ -34,8 +33,8 @@ var getFilteredReviews = function(reviews, filter) {
         return review.rating < 3;
       }).sort(function(a, b) {
           return a.rating - b.rating;
-        });
-      break;
+      });
+    break;
 
     case 'reviews-recent':
       reviewsToFilter.sort(function(a, b) {
@@ -44,12 +43,12 @@ var getFilteredReviews = function(reviews, filter) {
       break;
 
     case 'reviews-good':
-      reviewsToFilter = reviewsToFilter.filter(function(review) { 
-        return review.rating > 2; 
+      reviewsToFilter = reviewsToFilter.filter(function(review) {
+        return review.rating > 2;
       }).sort(function(a, b) {
       return b.rating - a.rating;
-    });
-      break;
+      });
+        break;
 
     case 'reviews-popular':
       reviewsToFilter.sort(function(a, b) {
@@ -124,7 +123,7 @@ var drawReviews = function(reviews) {
 };
 
 getReviews(function(loadedReviews) {
-  reviews = loadedReviews;
+  var reviews = loadedReviews;
   setFiltration();
   drawReviews(reviews);
 });
