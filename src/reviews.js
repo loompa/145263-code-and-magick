@@ -20,11 +20,11 @@ var setFiltration = function() {
 };
 
 var setFilterEnabled = function(filter) {
-  var filteredReviews = getFilteredReviews(reviews, filter);
+  var filteredReviews = getFilteredReviews(filter);
   drawReviews(filteredReviews);
 };
 
-var getFilteredReviews = function(reviews, filter) {
+var getFilteredReviews = function(filter) {
   var reviewsToFilter = reviews.slice(0);
 
   switch (filter) {
@@ -32,9 +32,9 @@ var getFilteredReviews = function(reviews, filter) {
       reviewsToFilter = reviewsToFilter.filter(function(review) {
         return review.rating < 3;
       }).sort(function(a, b) {
-          return a.rating - b.rating;
+        return a.rating - b.rating;
       });
-    break;
+      break;
 
     case 'reviews-recent':
       reviewsToFilter.sort(function(a, b) {
@@ -46,9 +46,9 @@ var getFilteredReviews = function(reviews, filter) {
       reviewsToFilter = reviewsToFilter.filter(function(review) {
         return review.rating > 2;
       }).sort(function(a, b) {
-      return b.rating - a.rating;
+        return b.rating - a.rating;
       });
-        break;
+      break;
 
     case 'reviews-popular':
       reviewsToFilter.sort(function(a, b) {
