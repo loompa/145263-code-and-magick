@@ -8,9 +8,55 @@ var IMAGE_HEIGHT = 120;
 var REVIEWS_LOAD_URL = '//o0.github.io/assets/json/reviews.json';
 var ratingList = ['one', 'two', 'three', 'four', 'five'];
 
-reviewsFilter.classList.add('invisible');
-
 var elementToClone = templateElement.content.querySelector('.review');
+
+var setFiltration = function() {
+  var filters = reviewsFilter.querySelectorAll('input');
+  for (var i = 0; i < filters.length; i++) {
+    filters[i].onclick = function(evt) {
+      setFilterEnabled(this.id);
+    };
+  }
+};
+
+var setFilterEnabled = function(filter) {
+  var filteredReviews = getFilteredReviews(reviews, filter);
+  drawReviews(filteredReviews);
+};
+
+var getFilteredReviews = function(reviews, filter) {
+  var reviewsToFilter = reviews.slice(0);
+  
+  switch (filter) {
+    case 'reviews-bad':
+      reviewsToFilter = reviewsToFilter.filter(function(review) {
+        return review.rating < 3;}).sort(function(a, b) {
+        return a.rating - b.rating;
+      });
+      break;
+
+    case 'reviews-recent':
+      reviewsToFilter.sort(function(a, b) {
+        return Date.parse(b.date) - Date.parse(a.date);
+      });
+      break;
+
+    case 'reviews-good':
+      reviewsToFilter = reviewsToFilter.filter(function(review) {
+        return review.rating > 2;}).sort(function(a, b) {
+        return b.rating - a.rating;
+      });
+      break;
+
+    case 'reviews-popular':
+      reviewsToFilter.sort(function(a, b) {
+        return b.usefulness - a.usefulness;
+      });
+      break;
+  }
+
+  return reviewsToFilter;
+};
 
 var getReviewElement = function(data, container) {
   var element = elementToClone.cloneNode(true);
@@ -68,6 +114,7 @@ var getReviews = function(callback) {
 };
 
 var drawReviews = function(reviews) {
+  reviewsContainer.innerHTML = '';
   reviews.forEach(function(review) {
     getReviewElement(review, reviewsContainer);
   });
@@ -75,5 +122,6 @@ var drawReviews = function(reviews) {
 
 getReviews(function(loadedReviews) {
   var reviews = loadedReviews;
+  setFiltration();
   drawReviews(reviews);
 });
