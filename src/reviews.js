@@ -7,13 +7,14 @@ var IMAGE_WIDTH = 120;
 var IMAGE_HEIGHT = 120;
 var REVIEWS_LOAD_URL = '//o0.github.io/assets/json/reviews.json';
 var ratingList = ['one', 'two', 'three', 'four', 'five'];
+var reviews = [];
 
 var elementToClone = templateElement.content.querySelector('.review');
 
 var setFiltration = function() {
   var filters = reviewsFilter.querySelectorAll('input');
   for (var i = 0; i < filters.length; i++) {
-    filters[i].onclick = function(evt) {
+    filters[i].onclick = function() {
       setFilterEnabled(this.id);
     };
   }
@@ -26,13 +27,14 @@ var setFilterEnabled = function(filter) {
 
 var getFilteredReviews = function(reviews, filter) {
   var reviewsToFilter = reviews.slice(0);
-  
+
   switch (filter) {
     case 'reviews-bad':
       reviewsToFilter = reviewsToFilter.filter(function(review) {
-        return review.rating < 3;}).sort(function(a, b) {
-        return a.rating - b.rating;
-      });
+        return review.rating < 3;
+      }).sort(function(a, b) {
+          return a.rating - b.rating;
+        });
       break;
 
     case 'reviews-recent':
@@ -42,10 +44,11 @@ var getFilteredReviews = function(reviews, filter) {
       break;
 
     case 'reviews-good':
-      reviewsToFilter = reviewsToFilter.filter(function(review) {
-        return review.rating > 2;}).sort(function(a, b) {
-        return b.rating - a.rating;
-      });
+      reviewsToFilter = reviewsToFilter.filter(function(review) { 
+        return review.rating > 2; 
+      }).sort(function(a, b) {
+      return b.rating - a.rating;
+    });
       break;
 
     case 'reviews-popular':
@@ -121,7 +124,7 @@ var drawReviews = function(reviews) {
 };
 
 getReviews(function(loadedReviews) {
-  var reviews = loadedReviews;
+  reviews = loadedReviews;
   setFiltration();
   drawReviews(reviews);
 });
