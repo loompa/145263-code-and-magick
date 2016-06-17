@@ -39,7 +39,7 @@ var getReviewElement = function(data, container) {
 
 var getReviews = function(callback) {
   var xhr = new XMLHttpRequest();
-  
+
   xhr.onload = function(evt) {
     reviewsContainer.classList.remove('reviews-list-loading');
     var loadedData = JSON.parse(evt.target.response);
@@ -47,13 +47,13 @@ var getReviews = function(callback) {
   };
 
   xhr.onloadstart = function() {
-      reviewsContainer.classList.add('reviews-list-loading');
-      console.log('kash');
+    reviewsContainer.classList.add('reviews-list-loading');
+    console.log('kash');
   };
 
   xhr.onerror = function() {
-  reviewsContainer.classList.remove('reviews-list-loading');
-  reviewsContainer.classList.add('reviews-load-failure');
+    reviewsContainer.classList.remove('reviews-list-loading');
+    reviewsContainer.classList.add('reviews-load-failure');
   };
 
   xhr.timeout = 10000;
@@ -70,10 +70,10 @@ var getReviews = function(callback) {
 var drawReviews = function(reviews) {
   reviews.forEach(function(review) {
     getReviewElement(review, reviewsContainer);
-});
+  });
 };
 
 getReviews(function(loadedReviews) {
-  reviews = loadedReviews;
+  var reviews = loadedReviews;
   drawReviews(reviews);
 });
