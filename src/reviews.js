@@ -10,6 +10,8 @@ var ratingList = ['one', 'two', 'three', 'four', 'five'];
 
 var elementToClone = templateElement.content.querySelector('.review');
 
+var reviews = [];
+
 var setFiltration = function() {
   var filters = reviewsFilter.querySelectorAll('input');
   for (var i = 0; i < filters.length; i++) {
