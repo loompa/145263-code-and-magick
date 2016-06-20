@@ -18,13 +18,11 @@ var reviews = [];
 var filteredReviews = [];
 
 var setFiltersEnabled = function(enabled) {
-  var filters = reviewsFilter.querySelectorAll('input');
-
-  for (var i = 0; i < filters.length; i++) {
-    filters[i].onclick = enabled ? function() {
-      setFilterEnabled(this.id);
-    } : null;
-  }
+  reviewsFilter.addEventListener('click', function(evt) {
+    if (evt.target.name === 'reviews') {
+      setFilterEnabled(evt.target.id);
+    }
+  });
 };
 
 var setFilterEnabled = function(filter) {
