@@ -135,7 +135,7 @@ var drawReviews = function(reviewsToFilter, page, replace) {
 
   var from = page * PAGE_SIZE;
   var to = from + PAGE_SIZE;
- 
+
   reviewsToFilter.slice(from, to).forEach(function(review) {
     getReviewElement(review, reviewsContainer);
   });
