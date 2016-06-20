@@ -34,6 +34,7 @@ var setFilterEnabled = function(filter) {
 };
 
 var getFilteredReviews = function(filter) {
+  reviewsMore.classList.remove('invisible');
   var reviewsToFilter = reviews.slice(0);
 
   switch (filter) {
@@ -145,6 +146,9 @@ var showMoreReviews = function() {
   reviewsMore.addEventListener('click', function() {
     pageNumber++;
     drawReviews(filteredReviews, pageNumber);
+    if ((pageNumber + 1) == (Math.ceil(filteredReviews.length / PAGE_SIZE))) {
+      reviewsMore.classList.add('invisible');
+    }
   });
 };
 
