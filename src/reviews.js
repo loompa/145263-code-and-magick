@@ -146,7 +146,7 @@ var showMoreReviews = function() {
   reviewsMore.addEventListener('click', function() {
     pageNumber++;
     drawReviews(filteredReviews, pageNumber);
-    if ((pageNumber + 1) == (Math.ceil(filteredReviews.length / PAGE_SIZE))) {
+    if ((pageNumber + 1) === (Math.ceil(filteredReviews.length / PAGE_SIZE))) {
       reviewsMore.classList.add('invisible');
     }
   });
