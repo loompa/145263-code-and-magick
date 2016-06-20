@@ -19,12 +19,11 @@ var filteredReviews = [];
 
 var setFiltersEnabled = function(enabled) {
   var filters = reviewsFilter.querySelectorAll('input');
-  debugger;
+
   for (var i = 0; i < filters.length; i++) {
-    filters[i].onclick = enabled ? function(evt) {
+    filters[i].onclick = enabled ? function() {
       setFilterEnabled(this.id);
     } : null;
-    debugger;
   }
 };
 
@@ -32,12 +31,10 @@ var setFilterEnabled = function(filter) {
   filteredReviews = getFilteredReviews(filter);
   pageNumber = 0;
   drawReviews(filteredReviews, pageNumber, true);
-  debugger;
 };
 
 var getFilteredReviews = function(filter) {
   var reviewsToFilter = reviews.slice(0);
-  debugger;
 
   switch (filter) {
     case 'reviews-bad':
@@ -113,7 +110,6 @@ var getReviews = function(callback) {
 
   xhr.onloadstart = function() {
     reviewsContainer.classList.add('reviews-list-loading');
-    console.log('kash');
   };
 
   xhr.onerror = function() {
@@ -139,16 +135,16 @@ var drawReviews = function(reviewsToFilter, page, replace) {
 
   var from = page * PAGE_SIZE;
   var to = from + PAGE_SIZE;
-
+ 
   reviewsToFilter.slice(from, to).forEach(function(review) {
     getReviewElement(review, reviewsContainer);
   });
 };
 
 var showMoreReviews = function() {
-  reviewsMore.addEventListener('click', function(evt) {
-      pageNumber++;
-      drawReviews(filteredReviews, pageNumber);
+  reviewsMore.addEventListener('click', function() {
+    pageNumber++;
+    drawReviews(filteredReviews, pageNumber);
   });
 };
 
