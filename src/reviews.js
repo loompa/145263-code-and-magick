@@ -17,7 +17,7 @@ var elementToClone = templateElement.content.querySelector('.review');
 var reviews = [];
 var filteredReviews = [];
 
-var setFiltersEnabled = function(enabled) {
+var setFiltersEnabled = function() {
   reviewsFilter.addEventListener('click', function(evt) {
     if (evt.target.name === 'reviews') {
       setFilterEnabled(evt.target.id);
@@ -152,7 +152,7 @@ var showMoreReviews = function() {
 
 getReviews(function(loadedReviews) {
   reviews = loadedReviews;
-  setFiltersEnabled(true);
+  setFiltersEnabled();
   setFilterEnabled();
   showMoreReviews();
 });
