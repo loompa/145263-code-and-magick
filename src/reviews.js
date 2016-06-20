@@ -3,32 +3,41 @@
 var reviewsContainer = document.querySelector('.reviews-list');
 var templateElement = document.querySelector('template');
 var reviewsFilter = document.querySelector('.reviews-filter');
+var reviewsMore = document.querySelector('.reviews-controls-more');
 var IMAGE_WIDTH = 120;
 var IMAGE_HEIGHT = 120;
 var LOAD_TIME = 10000;
+var PAGE_SIZE = 3;
 var REVIEWS_LOAD_URL = '//o0.github.io/assets/json/reviews.json';
 var ratingList = ['one', 'two', 'three', 'four', 'five'];
+var pageNumber = 0;
 
 var elementToClone = templateElement.content.querySelector('.review');
 
 var reviews = [];
+var filteredReviews = [];
 
-var setFiltration = function() {
+var setFiltersEnabled = function(enabled) {
   var filters = reviewsFilter.querySelectorAll('input');
+  debugger;
   for (var i = 0; i < filters.length; i++) {
-    filters[i].onclick = function() {
+    filters[i].onclick = enabled ? function(evt) {
       setFilterEnabled(this.id);
-    };
+    } : null;
+    debugger;
   }
 };
 
 var setFilterEnabled = function(filter) {
-  var filteredReviews = getFilteredReviews(filter);
-  drawReviews(filteredReviews);
+  filteredReviews = getFilteredReviews(filter);
+  pageNumber = 0;
+  drawReviews(filteredReviews, pageNumber, true);
+  debugger;
 };
 
 var getFilteredReviews = function(filter) {
   var reviewsToFilter = reviews.slice(0);
+  debugger;
 
   switch (filter) {
     case 'reviews-bad':
@@ -97,6 +106,7 @@ var getReviews = function(callback) {
 
   xhr.onload = function(evt) {
     reviewsContainer.classList.remove('reviews-list-loading');
+    reviewsMore.classList.remove('invisible');
     var loadedData = JSON.parse(evt.target.response);
     callback(loadedData);
   };
@@ -122,15 +132,29 @@ var getReviews = function(callback) {
   xhr.send();
 };
 
-var drawReviews = function(reviewsToFilter) {
-  reviewsContainer.innerHTML = '';
-  reviewsToFilter.forEach(function(review) {
+var drawReviews = function(reviewsToFilter, page, replace) {
+  if (replace) {
+    reviewsContainer.innerHTML = '';
+  }
+
+  var from = page * PAGE_SIZE;
+  var to = from + PAGE_SIZE;
+
+  reviewsToFilter.slice(from, to).forEach(function(review) {
     getReviewElement(review, reviewsContainer);
+  });
+};
+
+var showMoreReviews = function() {
+  reviewsMore.addEventListener('click', function(evt) {
+      pageNumber++;
+      drawReviews(filteredReviews, pageNumber);
   });
 };
 
 getReviews(function(loadedReviews) {
   reviews = loadedReviews;
-  setFiltration();
-  drawReviews(reviews);
+  setFiltersEnabled(true);
+  setFilterEnabled();
+  showMoreReviews();
 });
