@@ -89,7 +89,7 @@ var getReviewElement = function(data, container) {
   };
 
   reviewImage.onerror = function() {
-    element.classList.add('invisible');
+    element.classList.add('review-load-failure');
   };
 
   reviewImage.src = data.author.picture;
