@@ -1,6 +1,7 @@
 'use strict';
 
 (function() {
+  var lastScrollTop = 0;
     /**
    * @const
    * @type {number}
@@ -339,6 +340,7 @@
 
         // Установка обработчиков событий.
         this._initializeGameListeners();
+        this._setScrollEnabled();
 
         // Запуск игрового цикла.
         this.update();
@@ -402,6 +404,21 @@
           this._returnMessage('Hello, stranger, LET THE WAR BEGIN! to start hold the space; to fire hold the shift', 150);
           break;
       }
+    },
+
+    _setScrollEnabled : function() {
+      var scrollTop = 0;
+      var scrollState = 0;
+      window.addEventListener('scroll', function(evt) {
+        console.log('kashula');
+        scrollState = window.pageYOffset;
+        if (scrollState > scrollTop) {
+          console.log('downscroll code');
+        } else {
+          console.log('upscroll code');
+        }
+      scrollTop = scrollState;
+      }, false);
     },
 
     _returnMessage: function(message, maxWidth) {
@@ -738,6 +755,7 @@
 
   window.Game = Game;
   window.Game.Verdict = Verdict;
+
 
   var game = new Game(document.querySelector('.demo'));
   game.initializeLevelAndStart();
