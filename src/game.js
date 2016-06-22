@@ -1,7 +1,7 @@
 'use strict';
 
 (function() {
-  var THROTTLE_DELAY = 100; 
+  var THROTTLE_DELAY = 100;
 
     /**
    * @const
@@ -424,13 +424,13 @@
       var cloudPosition = 0;
       var flagClouds = true;
       var lastCall = Date.now();
-      var myFoo = this._setBackgroundPosition;
+      var myBackgroundFunc = this._setBackgroundPosition;
 
       window.addEventListener('scroll', function() {
 
         if (Date.now() - lastCall >= THROTTLE_DELAY) {
           flagClouds = !(document.querySelector('.header-clouds').getBoundingClientRect().bottom < 0);
-        
+
           if (document.querySelector('.demo').getBoundingClientRect().bottom < 0) {
             game.setGameStatus(Game.Verdict.PAUSE);
           }
@@ -444,8 +444,8 @@
           } else {
             cloudPosition = cloudPosition + CLOUDS_OFFCET;
           }
-        myFoo(cloudPosition);  
-        scrollTop = scrollState;
+          myBackgroundFunc(cloudPosition);
+          scrollTop = scrollState;
         }
       });
     },
