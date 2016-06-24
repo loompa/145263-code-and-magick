@@ -439,11 +439,7 @@
 
         if (flagClouds) {
           scrollState = window.pageYOffset;
-          if (scrollState > scrollTop) {
-            cloudPosition = cloudPosition - CLOUDS_OFFCET;
-          } else {
-            cloudPosition = cloudPosition + CLOUDS_OFFCET;
-          }
+          cloudPosition = (scrollState > scrollTop) ? (cloudPosition - CLOUDS_OFFCET) : (cloudPosition + CLOUDS_OFFCET);
           myBackgroundFunc(cloudPosition);
           scrollTop = scrollState;
         }
