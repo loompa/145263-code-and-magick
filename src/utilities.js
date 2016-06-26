@@ -3,12 +3,12 @@
 var BIRTH_DAY = 19;
 var BIRTH_MONTH = 11;
 
-var textPrompt = document.querySelector('.review-fields-text');
-var namePrompt = document.querySelector('.review-fields-name');
-var formPrompt = document.querySelector('.review-fields');
-
 module.exports = {
   changeVisible: function(nameValue, textValue) {
+    var textPrompt = document.querySelector('.review-fields-text');
+    var namePrompt = document.querySelector('.review-fields-name');
+    var formPrompt = document.querySelector('.review-fields');
+
     if (nameValue) {
       namePrompt.classList.add('invisible');
     } else {
