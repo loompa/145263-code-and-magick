@@ -8,7 +8,7 @@ var namePrompt = document.querySelector('.review-fields-name');
 var formPrompt = document.querySelector('.review-fields');
 
 module.exports = {
-  changeVisible : function(nameValue, textValue) {
+  changeVisible: function(nameValue, textValue) {
     if (nameValue) {
       namePrompt.classList.add('invisible');
     } else {
