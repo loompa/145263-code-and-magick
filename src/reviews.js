@@ -6,16 +6,19 @@ var reviewsFilter = document.querySelector('.reviews-filter');
 var reviewsMore = document.querySelector('.reviews-controls-more');
 var IMAGE_WIDTH = 120;
 var IMAGE_HEIGHT = 120;
-var LOAD_TIME = 10000;
 var PAGE_SIZE = 3;
 var REVIEWS_LOAD_URL = '//o0.github.io/assets/json/reviews.json';
 var ratingList = ['one', 'two', 'three', 'four', 'five'];
 var pageNumber = 0;
 
+var getReviews = require('./getReviews');
+
 var elementToClone = templateElement.content.querySelector('.review');
 
 var reviews = [];
 var filteredReviews = [];
+
+reviewsMore.classList.remove('invisible');
 
 var setFiltersEnabled = function() {
   reviewsFilter.addEventListener('click', function(evt) {
@@ -97,36 +100,6 @@ var getReviewElement = function(data, container) {
   return element;
 };
 
-var getReviews = function(callback) {
-  var xhr = new XMLHttpRequest();
-
-  xhr.onload = function(evt) {
-    reviewsContainer.classList.remove('reviews-list-loading');
-    reviewsMore.classList.remove('invisible');
-    var loadedData = JSON.parse(evt.target.response);
-    callback(loadedData);
-  };
-
-  xhr.onloadstart = function() {
-    reviewsContainer.classList.add('reviews-list-loading');
-  };
-
-  xhr.onerror = function() {
-    reviewsContainer.classList.remove('reviews-list-loading');
-    reviewsContainer.classList.add('reviews-load-failure');
-  };
-
-  xhr.timeout = LOAD_TIME;
-
-  xhr.ontimeout = function() {
-    reviewsContainer.classList.remove('reviews-list-loading');
-    reviewsContainer.classList.add('reviews-load-failure');
-  };
-
-  xhr.open('GET', REVIEWS_LOAD_URL);
-  xhr.send();
-};
-
 var drawReviews = function(reviewsToFilter, page, replace) {
   if (replace) {
     reviewsContainer.innerHTML = '';
@@ -155,4 +128,4 @@ getReviews(function(loadedReviews) {
   setFiltersEnabled();
   setFilterEnabled();
   showMoreReviews();
-});
+}, REVIEWS_LOAD_URL);
