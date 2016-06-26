@@ -70,13 +70,13 @@ module.exports = {
 
     xhr.open('GET', URL);
     xhr.send();
-    },
+  },
 
-    ratingList: ['one', 'two', 'three', 'four', 'five'],
-    IMAGE_WIDTH: 120,
-    IMAGE_HEIGHT: 120,
+  ratingList: ['one', 'two', 'three', 'four', 'five'],
+  IMAGE_WIDTH: 120,
+  IMAGE_HEIGHT: 120,
 
-    getElement: function(data, container) {
+  getElement: function(data, container) {
     var templateElement = document.querySelector('template');
     var elementToClone = templateElement.content.querySelector('.review');
     var element = elementToClone.cloneNode(true);
