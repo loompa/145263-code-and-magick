@@ -10,6 +10,9 @@
   var radio = form.elements['review-mark'];
   var name = form.elements['review-name'];
   var text = form.elements['review-text'];
+  var textPrompt = document.querySelector('.review-fields-text');
+  var namePrompt = document.querySelector('.review-fields-name');
+  var formPrompt = document.querySelector('.review-fields');
   var reviewButton = document.querySelector('.review-submit');
   var RADIO_MIDDLE_VALUE = 3;
 
@@ -22,8 +25,28 @@
   name.value = cookies.get('nameValue');
 
   form.oninput = function() {
-    utils.changeVisible(name.value, text.value);
+    changeVisible();
     controlButton();
+  };
+
+  var changeVisible = function() {
+    if (name.value) {
+      namePrompt.classList.add('invisible');
+    } else {
+      namePrompt.classList.remove('invisible');
+    }
+
+    if (text.value) {
+      textPrompt.classList.add('invisible');
+    } else {
+      textPrompt.classList.remove('invisible');
+    }
+
+    if (name.value && text.value) {
+      formPrompt.classList.add('invisible');
+    } else {
+      formPrompt.classList.remove('invisible');
+    }
   };
 
   var controlButton = function() {
