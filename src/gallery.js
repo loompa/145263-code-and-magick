@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = { 
+module.exports = {
   getPictures: function(pics) {
     for (var i = 0; i < pics.length; i++) {
       galleryPictures.push(pics[i]['src']);
@@ -53,7 +53,7 @@ var showPicture = function(picNumber) {
 
 picturesContainer.addEventListener('click', function(evt) {
   var clickedElement = evt.target.src;
-  gallery.getPictures(pictures);  
+  gallery.getPictures(pictures);
 
   currentNumber = galleryPictures.indexOf(clickedElement);
 
