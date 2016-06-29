@@ -1,5 +1,18 @@
 'use strict';
 
+var ESCAPE = 27;
+var picturesContainer = document.querySelector('.photogallery');
+var galleryContainer = document.querySelector('.overlay-gallery');
+var controlRight = document.querySelector('.overlay-gallery-control-right');
+var controlLeft = document.querySelector('.overlay-gallery-control-left');
+var closeBtn = document.querySelector('.overlay-gallery-close');
+var previewCurrentNumber = document.querySelector('.preview-number-current');
+var previewTotalNumber = document.querySelector('.preview-number-total');
+var pictures = picturesContainer.querySelectorAll('img');
+var preview = document.querySelector('.overlay-gallery-preview');
+var galleryPictures = [];
+var currentNumber = 0;
+
 module.exports = {
   getPictures: function(pics) {
     for (var i = 0; i < pics.length; i++) {
@@ -20,18 +33,6 @@ module.exports = {
   }
 };
 
-var ESCAPE = 27;
-var picturesContainer = document.querySelector('.photogallery');
-var galleryContainer = document.querySelector('.overlay-gallery');
-var controlRight = document.querySelector('.overlay-gallery-control-right');
-var controlLeft = document.querySelector('.overlay-gallery-control-left');
-var closeBtn = document.querySelector('.overlay-gallery-close');
-var previewCurrentNumber = document.querySelector('.preview-number-current');
-var previewTotalNumber = document.querySelector('.preview-number-total');
-var pictures = picturesContainer.querySelectorAll('img');
-var preview = document.querySelector('.overlay-gallery-preview');
-var galleryPictures = [];
-var currentNumber = 0;
 var gallery = require('./gallery');
 
 var hideGallery = function() {
