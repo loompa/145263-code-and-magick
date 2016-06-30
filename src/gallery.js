@@ -16,9 +16,9 @@
 
   module.exports = {
     getPictures: function(pics) {
-      for (var i = 0; i < pics.length; i++) {
-        galleryPictures.push(pics[i]['src']);
-      }
+      pics.forEach(function(picture) {
+        galleryPictures.push(picture['src']);
+      });
     },
 
     showGallery: function(number) {
