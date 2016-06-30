@@ -8,9 +8,11 @@ var REVIEWS_LOAD_URL = '//o0.github.io/assets/json/reviews.json';
 var pageNumber = 0;
 
 var reviewMethods = require('./reviewsMethods');
+var Review = require('./review');
 
 var reviews = [];
 var filteredReviews = [];
+var drawnReviews = [];
 
 reviewsMore.classList.remove('invisible');
 
@@ -31,14 +33,17 @@ var setFilterEnabled = function(filter) {
 
 var drawReviews = function(reviewsToFilter, page, replace) {
   if (replace) {
-    reviewsContainer.innerHTML = '';
+    drawnReviews.forEach(function(review) {
+      review.remove();
+    });
+    drawnReviews = [];
   }
 
   var from = page * PAGE_SIZE;
   var to = from + PAGE_SIZE;
 
   reviewsToFilter.slice(from, to).forEach(function(review) {
-    reviewMethods.getElement(review, reviewsContainer);
+    drawnReviews.push(new Review(review, reviewsContainer));
   });
 };
 
