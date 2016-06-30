@@ -15,7 +15,7 @@
   var currentNumber = 0;
 
   module.exports = {
-    getPictures: function(pics) {
+    fillPictures: function(pics) {
       pics.forEach(function(picture) {
         galleryPictures.push(picture['src']);
       });
@@ -55,7 +55,7 @@
 
   picturesContainer.addEventListener('click', function(evt) {
     var clickedElement = evt.target.src;
-    gallery.getPictures(pictures);
+    gallery.fillPictures(pictures);
 
     currentNumber = galleryPictures.indexOf(clickedElement);
 
