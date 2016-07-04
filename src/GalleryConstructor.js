@@ -9,6 +9,7 @@ var Gallery = function(picturesContainer, galleryContainer) {
   this.controlRight = document.querySelector('.overlay-gallery-control-right');
   this.controlLeft = document.querySelector('.overlay-gallery-control-left');
   this.closeBtn = document.querySelector('.overlay-gallery-close');
+  this.currentImage = new Image();
 
   var currentNumber = 0;
 
@@ -41,7 +42,7 @@ var Gallery = function(picturesContainer, galleryContainer) {
     pics.forEach(function(picture) {
       self.pictures.push(picture['src']);
     });
-
+    
     self.pictures = self.pictures.map(function(picturesUrl) {
       return picturesUrl.substr(self.hostUrl.length);
     });
@@ -65,11 +66,12 @@ var Gallery = function(picturesContainer, galleryContainer) {
   this.showPicture = function(picNumber, picUrl) {
     var preview = document.querySelector('.overlay-gallery-preview');
     if (picUrl) {
-      preview.style.backgroundImage = 'url(' + picUrl + ')';
+      self.currentImage.setAttribute('src', picUrl);
+      preview.appendChild(self.currentImage);
     } else {
-      preview.style.backgroundImage = 'url(' + self.pictures[picNumber] + ')';
+      self.currentImage.setAttribute('src', self.pictures[currentNumber]);
+      preview.appendChild(self.currentImage);
     }
-    preview.style.backgroundSize = 'cover';
 
     self.changePicNumber();
   };
