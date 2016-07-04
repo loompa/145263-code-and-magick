@@ -25,6 +25,10 @@ var setFiltersEnabled = function() {
 };
 
 var setFilterEnabled = function(filter) {
+  var currentFilter = document.getElementById(filter);
+  currentFilter.setAttribute('checked', true);
+  localStorage.setItem('lastFilter', filter);
+
   reviewsMore.classList.remove('invisible');
   filteredReviews = reviewMethods.getFiltered(filter, reviews);
   pageNumber = 0;
@@ -60,6 +64,13 @@ var showMoreReviews = function() {
 reviewMethods.load(function(loadedReviews) {
   reviews = loadedReviews;
   setFiltersEnabled();
-  setFilterEnabled();
+
+  var lastFilter = localStorage.getItem('lastFilter');
+  if (lastFilter === null) {
+    setFilterEnabled();
+  } else {
+    setFilterEnabled(lastFilter);
+  }
+
   showMoreReviews();
 }, REVIEWS_LOAD_URL);
