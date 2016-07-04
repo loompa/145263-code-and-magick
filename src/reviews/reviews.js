@@ -66,10 +66,10 @@ reviewMethods.load(function(loadedReviews) {
   setFiltersEnabled();
 
   var lastFilter = localStorage.getItem('lastFilter');
-  if (lastFilter === null) {
-    setFilterEnabled();
-  } else {
+  if (lastFilter) {
     setFilterEnabled(lastFilter);
+  } else {
+    setFilterEnabled();
   }
 
   showMoreReviews();
