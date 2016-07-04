@@ -3,7 +3,7 @@
 var Gallery = function(picturesContainer, galleryContainer) {
   var self = this;
 
-  this.hostUrl = 'http://localhost:8080/';
+  this.hostUrl = location.origin;
   this.ESCAPE = 27;
   this.galleryPictures = picturesContainer.querySelectorAll('img');
   this.controlRight = document.querySelector('.overlay-gallery-control-right');
@@ -45,7 +45,8 @@ var Gallery = function(picturesContainer, galleryContainer) {
     });
 
     self.pictures = self.pictures.map(function(picturesUrl) {
-      return picturesUrl.substr(self.hostUrl.length);
+      var symbolsToDelete = self.hostUrl + '/';
+      return picturesUrl.substr(symbolsToDelete.length);
     });
   };
 
