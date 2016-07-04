@@ -42,7 +42,7 @@ var Gallery = function(picturesContainer, galleryContainer) {
     pics.forEach(function(picture) {
       self.pictures.push(picture['src']);
     });
-    
+
     self.pictures = self.pictures.map(function(picturesUrl) {
       return picturesUrl.substr(self.hostUrl.length);
     });
