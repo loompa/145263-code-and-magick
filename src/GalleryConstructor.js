@@ -41,7 +41,7 @@ var Gallery = function(picturesContainer, galleryContainer) {
     pics.forEach(function(picture) {
       self.pictures.push(picture['src']);
     });
-    
+
     self.pictures = self.pictures.map(function(picturesUrl) {
       return picturesUrl.substr(self.hostUrl.length);
     });
@@ -67,7 +67,7 @@ var Gallery = function(picturesContainer, galleryContainer) {
     if (picUrl) {
       preview.style.backgroundImage = 'url(' + picUrl + ')';
     } else {
-    preview.style.backgroundImage = 'url(' + self.pictures[picNumber] + ')';
+      preview.style.backgroundImage = 'url(' + self.pictures[picNumber] + ')';
     }
     preview.style.backgroundSize = 'cover';
 
@@ -75,7 +75,7 @@ var Gallery = function(picturesContainer, galleryContainer) {
   };
 
   this.setHash = function(myUrl) {
-      location.hash = (myUrl) ? ('#photo/' + myUrl) : '';
+    location.hash = (myUrl) ? ('#photo/' + myUrl) : '';
   };
 
   this.changePicNumber = function() {
