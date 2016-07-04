@@ -35,6 +35,7 @@ var Gallery = function(picturesContainer, galleryContainer) {
   };
 
   this.picturesContainerClick = function(evt) {
+    evt.preventDefault();
     self.setHash(evt.target.getAttribute('src'));
   };
 
