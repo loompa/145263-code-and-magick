@@ -63,6 +63,7 @@ var showMoreReviews = function() {
 
 reviewMethods.load(function(loadedReviews) {
   reviews = loadedReviews;
+  reviewMethods.howMuchFilters(reviews, reviewsFilter);
   setFiltersEnabled();
 
   var lastFilter = localStorage.getItem('lastFilter');

@@ -1,6 +1,24 @@
 'use strict';
 
 module.exports = {
+  howMuchFilters: function(allReviews, reviewsBlock) {
+    var myInput = reviewsBlock.getElementsByTagName('label');
+    var filtersList = ['reviews-all', 'reviews-bad', 'reviews-recent', 'reviews-good', 'reviews-popular'];
+    var reviewsCount = [];
+
+    filtersList.forEach(function(filterName) {
+      var currentFilter = document.getElementById(filterName);
+      var count = this.getFiltered(filterName, allReviews);
+      reviewsCount.push(count.length);
+    }, this);
+
+    [].forEach.call(myInput, function(filterLabel, index) {
+      var newSup = document.createElement('sup');
+      newSup.innerHTML = reviewsCount[index];
+      filterLabel.appendChild(newSup);
+    });
+  },
+
   getFiltered: function(filter, reviews) {
     var reviewsToFilter = reviews.slice(0);
 
