@@ -7,7 +7,6 @@ module.exports = {
     var reviewsCount = [];
 
     filtersList.forEach(function(filterName) {
-      var currentFilter = document.getElementById(filterName);
       var count = this.getFiltered(filterName, allReviews);
       reviewsCount.push(count.length);
     }, this);
