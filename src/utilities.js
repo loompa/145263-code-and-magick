@@ -17,5 +17,20 @@ module.exports = {
     }
 
     return difference;
+  },
+
+  showValidationMessage: function(block) {
+    if (!block.validity.valid && (block.parentNode.lastChild.tagName !== 'DIV')) {
+      var divWithMessage = document.createElement('div');
+      divWithMessage.style.color = 'blue';
+      divWithMessage.style.display = 'inline-block';
+      divWithMessage.style.borderWidth = '2px';
+      divWithMessage.style.borderStyle = 'dotted';
+      divWithMessage.style.borderColor = 'blue';
+      block.parentNode.appendChild(divWithMessage);
+      divWithMessage.appendChild(document.createTextNode(block.validationMessage));
+    } else if (block.validity.valid && (block.parentNode.lastChild.tagName === 'DIV')) {
+      block.parentNode.removeChild(block.parentNode.lastChild);
+    }
   }
 };
