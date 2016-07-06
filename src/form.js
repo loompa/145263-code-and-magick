@@ -27,6 +27,8 @@
   form.oninput = function() {
     changeVisible();
     controlButton();
+    utils.showValidationMessage(name);
+    utils.showValidationMessage(text);
   };
 
   var changeVisible = function() {
@@ -64,6 +66,10 @@
 
   field.onchange = function() {
     document.getElementById('review-text').required = (radio.value <= RADIO_MIDDLE_VALUE);
+    changeVisible();
+    controlButton();
+    utils.showValidationMessage(name);
+    utils.showValidationMessage(text);
   };
 
   formOpenButton.onclick = function(evt) {
